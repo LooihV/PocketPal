@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+        android:icon="@drawable/baseline_home_24"
+        android:id="@+id/home"/>
+    <item android:title="Tasks"
+        android:icon="@drawable/baseline_fact_check_24"
+        android:id="@+id/tasks"/>
+    <item android:title="Schedule"
+        android:icon="@drawable/baseline_calendar_month_24"
+        android:id="@+id/schedule"/>
+    <item android:title="Store"
+        android:icon="@drawable/baseline_store_24"
+        android:id="@+id/store"/>
+    <item android:title="Pomodoro"
+        android:icon="@drawable/baseline_watch_later_24"
+        android:id="@+id/pomodoro"/>
+</menu>
