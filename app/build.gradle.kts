@@ -6,7 +6,6 @@ plugins {
 android {
     namespace = "com.unibague.pocketpal"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "com.unibague.pocketpal"
         minSdk = 30
@@ -38,6 +37,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -47,6 +47,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
@@ -72,4 +73,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.constraintlayout)
+
 }
