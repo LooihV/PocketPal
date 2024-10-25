@@ -2,10 +2,10 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="apapapa">
+      <SelectionState runConfigName="CreatePal">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="CreatePal">
+      <SelectionState runConfigName="sdfsdf">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
