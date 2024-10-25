@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph_home"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.unibague.pocketpal.Home"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.unibague.pocketpal.Schedule"
+        android:label="@string/schedule"
+        tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/pomodoroFragment"
+        android:name="com.unibague.pocketpal.Pomodoro"
+        android:label="@string/pomodoro"
+        tools:layout="@layout/fragment_pomodoro" />
+
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.unibague.pocketpal.Tasks"
+        android:label="@string/tasks"
+        tools:layout="@layout/fragment_tasks" />
+
+    <fragment
+        android:id="@+id/storeFragment"
+        android:name="com.unibague.pocketpal.Store"
+        android:label="@string/store"
+        tools:layout="@layout/fragment_store" />
+
+
+</navigation>
