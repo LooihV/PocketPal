@@ -43,11 +43,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
@@ -94,6 +97,7 @@ fun AppNavigations(auth: FirebaseAuth) {
         composable("home") { HomeScreen(navController) }
         composable("splash") { SplashScreen(navController) }
         composable("tasks") { TaskScreen(navController) }
+        composable("pomodoro") { PomodoroScreen(navController) }
     }
 }
 
@@ -616,8 +620,7 @@ fun TaskScreen(navController: NavHostController) {
 fun TaskItem(
     task: Task,
     onTaskUpdated: (Task) -> Unit,
-    onStateChanged: (Task) -> Unit
-) {
+    onStateChanged: (Task) -> Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -697,8 +700,7 @@ fun AddTaskDialog(onDismiss: () -> Unit, onAddTask: (Task) -> Unit) {
 fun EditTaskDialog(
     task: Task,
     onDismiss: () -> Unit,
-    onSave: (Task) -> Unit
-) {
+    onSave: (Task) -> Unit ) {
     var title by remember { mutableStateOf(task.title) }
     var description by remember { mutableStateOf(task.description) }
 
@@ -739,6 +741,127 @@ fun EditTaskDialog(
         }
     )
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PomodoroScreen(navController: NavHostController) {
+    var timeLeft by remember { mutableIntStateOf(25 * 60) } // 25 minutos por defecto
+    var isRunning by remember { mutableStateOf(false) }
+    var workDuration by remember { mutableIntStateOf(25 * 60) }
+    var shortBreakDuration by remember { mutableIntStateOf(5 * 60) }
+    var longBreakDuration by remember { mutableIntStateOf(15 * 60) }
+    var cycleCount by remember { mutableIntStateOf(0) }
+
+    val timer = rememberUpdatedState(isRunning)
+
+    // Lógica del temporizador
+    LaunchedEffect(timer.value) {
+        while (timer.value && timeLeft > 0) {
+            kotlinx.coroutines.delay(1000L)
+            timeLeft -= 1
+        }
+        if (timeLeft == 0 && timer.value) {
+            // Finaliza la sesión actual, puedes implementar lógicas para cambiar a descansos o reiniciar
+            isRunning = false
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(title = { Text("Pomodoro Timer") })
+        },
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = String.format(
+                    "%02d:%02d",
+                    timeLeft / 60,
+                    timeLeft % 60
+                ),
+                style = MaterialTheme.typography.displayLarge,
+                color = MaterialTheme.colorScheme.primary
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Botones de control
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Button(onClick = {
+                    isRunning = true
+                }) {
+                    Text("Iniciar")
+                }
+                Button(onClick = {
+                    isRunning = false
+                }) {
+                    Text("Pausar")
+                }
+                Button(onClick = {
+                    isRunning = false
+                    timeLeft = workDuration
+                }) {
+                    Text("Reiniciar")
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // Configuración
+            Text("Duración de la sesión: ${(workDuration / 60)} minutos")
+            Slider(
+                value = (workDuration / 60).toFloat(),
+                onValueChange = {
+                    workDuration = (it * 60).toInt()
+                    if (!isRunning) timeLeft = workDuration
+                },
+                valueRange = 15f..60f,
+                steps = 5
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text("Descanso corto: ${(shortBreakDuration / 60)} minutos")
+            Slider(
+                value = (shortBreakDuration / 60).toFloat(),
+                onValueChange = { shortBreakDuration = (it * 60).toInt() },
+                valueRange = 1f..15f,
+                steps = 13
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text("Descanso largo: ${(longBreakDuration / 60)} minutos")
+            Slider(
+                value = (longBreakDuration / 60).toFloat(),
+                onValueChange = { longBreakDuration = (it * 60).toInt() },
+                valueRange = 10f..30f,
+                steps = 4
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // Contador de ciclos
+            Text(
+                text = "Ciclos completados: $cycleCount",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
