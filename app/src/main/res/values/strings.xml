@@ -26,5 +26,10 @@
     <string name="calculate_tip">Calculate Tip</string>
     <string name="bill_amount">Bill Amount</string>
     <string name="tip_amount">Tip Amount: %s</string>
+    <string name="title_activity_login_screen">LoginScreen</string>
+    <string name="title_activity_register_screen">RegisterScreen</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="title_activity_pomodoro_screen">PomodoroScreen</string>
+    <string name="title_activity_tasks_screen">TasksScreen</string>
 
 </resources>
