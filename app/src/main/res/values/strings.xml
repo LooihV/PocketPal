@@ -11,4 +11,20 @@
     <string name="pomodoro">Pomodoro</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="happy_birthday_text">Happy Birthday Weedo!</string>
+    <string name="signature_text">From Weedo</string>
+    <string name="text_composable_title">Text Composable</string>
+    <string name="text_composable_text">Displays text and follows the recommended Material Design guidelines.</string>
+    <string name="image_composable_title">Image Composable</string>
+    <string name="image_composable_text">Displays images and follows the recommended Material Design guidelines.</string>
+    <string name="row_composable_title">Row Composable</string>
+    <string name="row_composable_text">Displays items side by side.</string>
+    <string name="column_composable_title">Column Composable</string>
+    <string name="column_composable_text">Displays items in a vertical sequence.</string>
+    <string name="roll">Roll</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="calculate_tip">Calculate Tip</string>
+    <string name="bill_amount">Bill Amount</string>
+    <string name="tip_amount">Tip Amount: %s</string>
+
 </resources>
